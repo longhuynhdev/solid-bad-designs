@@ -1,0 +1,25 @@
+@startuml
+
+class Greeting {
+    -Languages language
+    +Greeting(Languages language)
+    +void SayHi()
+}
+
+enum Languages {
+    English
+    Norwegian
+    Swedish
+    Vietnamese
+}
+
+' Relations
+Greeting <.. Languages : uses 
+
+' class Program {
+'     +{static}void Main(string[] args)
+' }
+
+' Program --> Greeting : creates and uses
+
+@enduml

@@ -1,0 +1,61 @@
+@startuml
+
+interface ICartStorage {
+    +List<ShoppingCartItem> LoadFromFile(string fileName)
+    +void SaveToFile(string fileName, List<ShoppingCartItem> items) 
+}
+
+interface ICartPrinter {
+    +void Print(List<ShoppingCartItem> items)
+}
+
+class JSONCartStorage {
+    +List<ShoppingCartItem> LoadFromFile(string fileName)
+    +void SaveToFile(string fileName, List<ShoppingCartItem> items) 
+}
+
+class ConsoleCartPrinter {
+    +void Print(List<ShoppingCartItem> items)
+}
+
+class HTMLCartPrinter {
+    +void Print(List<ShoppingCartItem> items)
+}
+
+class ShoppingCart {
+    -List<ShoppingCartItem> items
+    +IEnumerable<ShoppingCartItem> Items { get }
+    +void Add(ShoppingCartItem)
+    +void Remove(ShoppingCartItem)
+    +void Clear()
+    +double GetTotal()
+}
+
+class ShoppingCartItem {
+    +int ProductId
+    +int Quantity
+    +string? Title
+    +double Price
+}
+
+' Relations
+ICartStorage <|.. JSONCartStorage
+ICartPrinter <|.. ConsoleCartPrinter
+ICartStorage ..> ShoppingCartItem : uses
+
+ICartPrinter <|.. HTMLCartPrinter
+ICartPrinter ..> ShoppingCartItem : uses
+
+ShoppingCart "1" <>-- "*" ShoppingCartItem : contains
+
+' class Program {
+'     +{static} void Main(string[] args)
+' }
+
+' Program relationships
+' Program --> ShoppingCart : uses
+' Program --> ICartStorage : uses
+' Program --> ICartPrinter : uses
+' Program ..> ShoppingCartItem : creates
+
+@enduml

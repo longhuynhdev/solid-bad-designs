@@ -1,0 +1,37 @@
+@startuml
+
+interface IGreeting {
+    +void SayHi()
+}
+
+class GreetingEn {
+    +void SayHi()
+}
+
+class GreetingNor {
+    +void SayHi()
+}
+
+class GreetingSwe {
+    +void SayHi()
+}
+
+class GreetingVn {
+    +void SayHi()
+}
+
+
+
+' Relations
+IGreeting <|.. GreetingEn
+IGreeting <|.. GreetingNor
+IGreeting <|.. GreetingSwe
+IGreeting <|.. GreetingVn
+
+' class Program {
+'     +{static}void Main(string[] args)
+' }
+
+' Program --> IGreeting : uses >
+
+@enduml

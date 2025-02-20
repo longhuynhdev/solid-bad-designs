@@ -1,5 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-using Single_Responsibility;
+﻿using Single_Responsibility;
 
 var cart = new ShoppingCart();
 cart.Add(new ShoppingCartItem()

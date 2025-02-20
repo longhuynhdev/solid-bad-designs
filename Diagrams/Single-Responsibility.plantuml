@@ -1,0 +1,31 @@
+@startuml
+
+class ShoppingCart {
+    -List<ShoppingCartItem> items
+    +IEnumerable<ShoppingCartItem> Items { get }
+    +void Add(ShoppingCartItem item)
+    +void Remove(ShoppingCartItem item)
+    +void Clear()
+    +void LoadFromFile(string fileName)
+    +void SaveToFile(string fileName)
+    +double GetTotal()
+    +void Print()
+}
+
+class ShoppingCartItem {
+    +int ProductId { get; set; }
+    +int Quantity { get; set; }
+    +string? Title { get; set; }
+    +double Price { get; set; }
+}
+
+' Relations between classes
+ShoppingCart "1" <>-- "*" ShoppingCartItem : contains
+
+' class Program {
+'     +{static}void Main(string[] args)
+' }
+
+' Program --> ShoppingCart : creates and uses
+' Program --> ShoppingCartItem : creates and uses
+@enduml
