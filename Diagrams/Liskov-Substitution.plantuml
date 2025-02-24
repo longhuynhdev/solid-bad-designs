@@ -1,0 +1,21 @@
+@startuml
+
+class Rectangle {
+    -int width
+    -int height
+    +virtual int Width { get; set; }
+    +virtual int Height { get; set; }
+    +Rectangle(int width, int height)
+    +int GetArea()
+}
+
+class Square {
+    +override int Width { get; set; }
+    +override int Height { get; set; }
+    +Square(int size)
+}
+
+' Inheritance relationship
+Rectangle <|-- Square : extends
+
+@enduml

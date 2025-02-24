@@ -1,0 +1,23 @@
+@startuml
+
+interface IShape {
+    +int GetArea()
+}
+
+class Rectangle {
+    +int Width { get; set; }
+    +int Height { get; set; }
+    +Rectangle(int width, int height)
+    +int GetArea()
+}
+
+class Square {
+    +int Side { get; set; }
+    +Square(int side)
+    +int GetArea()
+}
+
+IShape <|.. Rectangle
+IShape <|.. Square
+
+@enduml
