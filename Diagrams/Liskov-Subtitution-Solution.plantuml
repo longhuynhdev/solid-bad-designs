@@ -5,19 +5,30 @@ interface IShape {
 }
 
 class Rectangle {
-    +int Width { get; set; }
-    +int Height { get; set; }
+    +int Width
+    +int Height 
     +Rectangle(int width, int height)
     +int GetArea()
 }
 
 class Square {
-    +int Side { get; set; }
+    +int Side
     +Square(int side)
     +int GetArea()
 }
 
-IShape <|.. Rectangle
-IShape <|.. Square
+' Relations between classes
+IShape <|-- Rectangle : implements
+IShape <|-- Square : implements
+
+note right of IShape
+- Rectangle và Square là các class riêng biệt
+    kế thừa interface IShape
+- Mỗi class có thuộc tính và cách tính diện tích 
+    phù hợp với hình dạng của nó
+- Không có sự phụ thuộc không cần thiết giữa các class
+- Có thể thay thế IShape bằng bất kỳ class con nào
+    mà không làm thay đổi tính đúng đắn của chương trình
+endnote
 
 @enduml

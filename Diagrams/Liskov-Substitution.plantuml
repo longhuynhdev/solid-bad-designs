@@ -3,19 +3,27 @@
 class Rectangle {
     -int width
     -int height
-    +virtual int Width { get; set; }
-    +virtual int Height { get; set; }
+    +virtual int Width 
+    +virtual int Height 
     +Rectangle(int width, int height)
     +int GetArea()
 }
 
 class Square {
-    +override int Width { get; set; }
-    +override int Height { get; set; }
+    +override int Width 
+    +override int Height 
     +Square(int size)
 }
 
-' Inheritance relationship
+' Relations between classes
 Rectangle <|-- Square : extends
+
+note right of Square
+- Khi thay đổi Width hoặc Height của Square,
+    cả hai thuộc tính đều thay đổi để giữ hình vuông
+- Điều này khác với hành vi mong đợi của Rectangle,
+    nơi Width và Height thay đổi độc lập
+- Dẫn đến lỗi khi thay thế Rectangle bằng Square
+endnote
 
 @enduml

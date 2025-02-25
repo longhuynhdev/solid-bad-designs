@@ -1,0 +1,68 @@
+@startuml
+
+interface IPrinter {
+    +void Print(ShoppingCart cart)
+}
+
+interface IStorage {
+    + ShoppingCart? Load()
+    + void Save(ShoppingCart cart)
+}
+
+class ConsolePrinter {
+    + void Print(ShoppingCart cart)
+}
+
+class PDFPrinter {
+    + void Print(ShoppingCart cart)
+}
+
+class FileStorage {
+    - string fileName
+    + ShoppingCart? Load()
+    + void Save(ShoppingCart cart)
+}
+
+class CloudStorage {
+    - string fileName
+    + ShoppingCart? Load()
+    + void Save(ShoppingCart cart)
+}
+
+
+class OnlineStore {
+    - readonly IPrinter printer
+    - readonly IStorage storage
+    + ShoppingCart Cart
+    + void Save()
+    + void Load()
+    + void Print()
+}
+
+class ShoppingCart {
+    -List<ShoppingCartItem> items
+    +IEnumerable<ShoppingCartItem> Items
+    +void Add(ShoppingCartItem item)
+    +void Remove(ShoppingCartItem item)
+    +void Clear()
+    +double GetTotal()
+}
+
+' Relations between classes
+IPrinter <|-- ConsolePrinter :implements
+IPrinter <|-- PDFPrinter :implements
+
+IStorage <|-- FileStorage :implements
+IStorage <|-- CloudStorage :implements
+
+OnlineStore o-- IPrinter : contains
+OnlineStore o-- IStorage : contains
+OnlineStore o-- ShoppingCart : contains
+
+note right of OnlineStore
+    OnlineStore chỉ phụ thuộc vào interface (IPrinter, IStorage)
+    - Dễ dàng mở rộng: có thể thêm nhiều loại printer/storage mới
+    + Ví dụ: PDFPrinter, CloudStorage,...
+    - Dễ test: có thể mock các interface
+end note
+@enduml

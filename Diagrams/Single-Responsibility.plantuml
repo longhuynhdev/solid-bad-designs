@@ -2,7 +2,7 @@
 
 class ShoppingCart {
     -List<ShoppingCartItem> items
-    +IEnumerable<ShoppingCartItem> Items { get }
+    +IEnumerable<ShoppingCartItem> Items
     +void Add(ShoppingCartItem item)
     +void Remove(ShoppingCartItem item)
     +void Clear()
@@ -13,19 +13,22 @@ class ShoppingCart {
 }
 
 class ShoppingCartItem {
-    +int ProductId { get; set; }
-    +int Quantity { get; set; }
-    +string? Title { get; set; }
-    +double Price { get; set; }
+    +int ProductId 
+    +int Quantity 
+    +string? Title
+    +double Price 
 }
 
 ' Relations between classes
-ShoppingCart "1" <>-- "*" ShoppingCartItem : contains
+ShoppingCart  o-- ShoppingCartItem : contains
 
-' class Program {
-'     +{static}void Main(string[] args)
-' }
+note right of ShoppingCart
+Vi phạm Single Responsibility vì lớp ShoppingCart thực hiện quá nhiều chức năng:
+- Chức năng chính: Quản lý giỏ hàng (thêm, xóa, sửa items)
+- Tính toán: Tính tổng tiền
+- Input/Output: Đọc/ghi dữ liệu từ file
+- Giao diện: In thông tin giỏ hàng
+==> Nên tách thành các lớp riêng biệt cho từng trách nhiệm
+end note
 
-' Program --> ShoppingCart : creates and uses
-' Program --> ShoppingCartItem : creates and uses
 @enduml

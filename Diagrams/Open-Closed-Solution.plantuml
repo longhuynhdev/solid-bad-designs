@@ -20,18 +20,15 @@ class GreetingVn {
     +void SayHi()
 }
 
+' Relations between classes
+IGreeting <|-- GreetingEn : implements
+IGreeting <|-- GreetingNor : implements
+IGreeting <|-- GreetingSwe : implements
+IGreeting <|-- GreetingVn : implements
 
-
-' Relations
-IGreeting <|.. GreetingEn
-IGreeting <|.. GreetingNor
-IGreeting <|.. GreetingSwe
-IGreeting <|.. GreetingVn
-
-' class Program {
-'     +{static}void Main(string[] args)
-' }
-
-' Program --> IGreeting : uses >
+note right of IGreeting
+Dễ mở rộng: chỉ cần tạo lớp mới kế thừa IGreeting 
+khi muốn hỗ trợ thêm ngôn ngữ
+endnote
 
 @enduml

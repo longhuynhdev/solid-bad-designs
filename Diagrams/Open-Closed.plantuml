@@ -13,13 +13,13 @@ enum Languages {
     Vietnamese
 }
 
-' Relations
-Greeting <.. Languages : uses 
+' Relations between classes
+Greeting ..> Languages : uses 
 
-' class Program {
-'     +{static}void Main(string[] args)
-' }
-
-' Program --> Greeting : creates and uses
+note right of Languages
+Vi phạm Open-Closed: Phải sửa mã nguồn hiện có 
+(lớp Greeting, enum Languages)
+khi thêm ngôn ngữ mới
+endnote
 
 @enduml

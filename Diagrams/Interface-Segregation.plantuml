@@ -1,0 +1,38 @@
+@startuml
+
+interface IOnlineStore {
+    +void AddProduct(int productId, int quantity)
+    +void RemoveProduct(int productId, int quantity)
+    +void SetCheckoutInfo(CheckoutInfo checkoutInfo)
+    +Order Checkout()
+}
+
+class OnlineStore {
+    -Dictionary<int, int> cart
+    -CheckoutInfo? checkoutInfo
+    +void AddProduct(int productId, int quantity)
+    +void RemoveProduct(int productId, int quantity)
+    +void SetCheckoutInfo(CheckoutInfo checkoutInfo)
+    +Order Checkout()
+}
+
+class Order {
+    +int Id 
+}
+
+class CheckoutInfo {
+}
+
+' Relations between classes
+IOnlineStore <|-- OnlineStore : implements
+OnlineStore ..> Order : creates
+OnlineStore --> CheckoutInfo : uses
+
+note right of IOnlineStore
+Interface IOnlineStore vi phạm nguyên tắc Interface Segregation do:
+- Gộp 2 trách nhiệm khác nhau vào 1 interface: quản lý giỏ hàng và thanh toán đơn hàng
+- Các client có thể chỉ cần một trong hai chức năng nhưng phải implement cả hai
+- Nên tách thành ICart và IOnlineStore
+endnote
+
+@enduml

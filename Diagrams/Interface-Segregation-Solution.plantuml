@@ -1,0 +1,57 @@
+@startuml
+
+interface IOnlineStore {
+    +void AddProduct(int productId, int quantity)
+    +void RemoveProduct(int productId, int quantity)
+    +IEnumerable<CartItem> GetItems()
+}
+
+interface ICart {
+    +void AddItems(IEnumerable<CartItem> items)
+    +Order Checkout(CheckoutInfo checkoutInfo)
+}
+
+class OnlineStore {
+    -Dictionary<int, int> cart
+    +void AddProduct(int productId, int quantity)
+    +void RemoveProduct(int productId, int quantity)
+    +IEnumerable<CartItem> GetItems()
+}
+
+class Cart {
+    -List<CartItem> items
+    +void AddItems(IEnumerable<CartItem> items)
+    +Order Checkout(CheckoutInfo checkoutInfo)
+}
+
+class CartItem {
+    +int ProductId 
+    +int Quantity
+}
+
+class Order {
+    +int Id 
+}
+
+class CheckoutInfo {
+}
+
+' Relations between classes
+IOnlineStore <|-- OnlineStore : implements
+ICart <|-- Cart : implements
+OnlineStore ..> CartItem : creates
+Cart o-- CartItem : contains
+Cart ..> Order : creates
+Cart ..> CheckoutInfo : uses
+
+note right of ICart 
+Interface được tách nhỏ theo đúng chức năng:
+ICart xử lý giỏ hàng và thanh toán
+endnote
+
+note left of IOnlineStore
+IOnlineStore quản lý sản phẩm
+endnote
+
+@enduml
+

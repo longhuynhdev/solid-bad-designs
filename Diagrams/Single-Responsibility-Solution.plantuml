@@ -24,7 +24,7 @@ class HTMLCartPrinter {
 
 class ShoppingCart {
     -List<ShoppingCartItem> items
-    +IEnumerable<ShoppingCartItem> Items { get }
+    +IEnumerable<ShoppingCartItem> Items 
     +void Add(ShoppingCartItem)
     +void Remove(ShoppingCartItem)
     +void Clear()
@@ -38,24 +38,22 @@ class ShoppingCartItem {
     +double Price
 }
 
-' Relations
-ICartStorage <|.. JSONCartStorage
-ICartPrinter <|.. ConsoleCartPrinter
+' Relations between classes
+ICartStorage <|-- JSONCartStorage : implements
+ICartPrinter <|-- ConsoleCartPrinter : implements
 ICartStorage ..> ShoppingCartItem : uses
 
-ICartPrinter <|.. HTMLCartPrinter
+ICartPrinter <|-- HTMLCartPrinter
 ICartPrinter ..> ShoppingCartItem : uses
 
-ShoppingCart "1" <>-- "*" ShoppingCartItem : contains
+ShoppingCart o--  ShoppingCartItem : contains 
 
-' class Program {
-'     +{static} void Main(string[] args)
-' }
-
-' Program relationships
-' Program --> ShoppingCart : uses
-' Program --> ICartStorage : uses
-' Program --> ICartPrinter : uses
-' Program ..> ShoppingCartItem : creates
+note top of ShoppingCart
+Tách ShoppingCart thành các trách nhiệm riêng biệt:
+- ShoppingCart: Xử lý quản lý giỏ hàng (thêm/xóa/tính tiền)
+- ICartStorage: Xử lý lưu trữ (đọc/ghi file)  
+- ICartPrinter: Xử lý hiển thị (console/HTML)
+==> Mỗi class chỉ có một trách nhiệm duy nhất, dễ bảo trì và mở rộng.
+endnote
 
 @enduml
