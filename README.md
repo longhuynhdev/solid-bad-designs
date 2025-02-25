@@ -5,6 +5,7 @@
 Năm nguyên tắc này gồm (bạn tham khảo các ví dụ trong từng thư mục tương ứng):
 
 ## Single Responsibility
+![Sigle Responsibility](./Diagrams/imgs/Single-Responsibility.png)
 Mỗi lớp chỉ phục vụ cho một mục đích duy nhất.
 Lớp ShoppingCart vi phạm nguyên tắc này khi nó vừa là nơi chứa nội dung giỏ hàng, vừa có các chức năng để Load/Save, 
 đồng thời có cả chức năng liên quan đến in nội dung giỏ hàng.
@@ -21,8 +22,12 @@ Sẽ đơn giản hơn rất nhiều khi bạn thêm các interface như: ICartS
 ICartPrinter với void Print(ShoppingCart) và chuyển các hàm tương ứng sang các lớp con của các interface trên. Vì sao ta tạo 
 ra các interface/abstract class rồi implement mà không làm trực tiếp luôn thì bạn có thể xem phần Dependency-Inversion trong 
 bài này.
+### Giải giáp tham khảo
+![Sigle Responsibility Solution](./Diagrams/imgs/Single-Responsibility-Solution.png)
+
 
 ## Open-Closed
+![Open Closed](./Diagrams/imgs/Open-Closed.png)
 Các lớp phải cho phép mở rộng, nhưng không cho phép thay đổi lại các tính năng đã có.
 
 Trong ví dụ này, ta thiết kế lớp Greeting để hiển thị lời chào theo một ngôn ngữ nào đó. Thiết kế này không cho phép ta mở rộng,
@@ -61,7 +66,12 @@ public class GreetingVi : IGreeting
 ```
 Bạn có thể mở rộng ra bao nhiêu ngôn ngữ cũng được mà không cần phải sửa lại mã nguồn của IGreeting.
 
+### Giải pháp tham khảo
+![Open Closed Solution](./Diagrams/imgs/Open-Closed-Solution.png)
+
+
 ## Liskov Substitution
+![Liskov Substitution](./Diagrams/imgs/Liskov-Substitution.png)
 Nếu bạn có một con trỏ thuộc lớp cha, thì nó phải hoạt động hoàn toàn đúng đắn khi bạn trỏ nó đến bất kỳ lớp con nào.
 
 Vì một hình vuông vốn cũng là một hình chữ nhật với các cạnh bằng nhau, nên trong lớp Square ta override lại các thuộc tính Width để khi thay đổi giá trị chúng sẽ tự động cập nhật lại Height. Điều này không có vấn đề gì nếu bạn có một biến 
@@ -76,8 +86,11 @@ rect.Width = 20;
 ```
 
 Sau đó bạn mong muốn hình chữ nhật đó có diện tích bao nhiêu? Vì biến rect có kiểu Rectangle nên chắc chắn những người khác (và có thể cả bạn sau này) sẽ mặc nhiên coi nó trả về giá trị 200, nhưng thực chất nó sẽ trả về 400. 
+### Giải pháp tham khảo
+![Liskov Substitution Solution](./Diagrams/imgs/Liskov-Subtitution-Solution.png)
 
 ## Interface Segregation
+![Interface Segregation](./Diagrams/imgs/Interface-Segregation.png)
 Khi thiết kế các interface, mỗi interface sẽ phục vụ cho một mục đích nào đó, đừng tạo các interface kiểu "tất cả trong một".
 
 IOnlineStore chứa định nghĩa các function, vốn phục vụ cho 2 mục đích hoàn toàn khác nhau: quản lý giỏ hàng và tạo đơn hàng. Bởi chúng được định nghĩa cùng nhau nên các lớp thừa kế bạn cũng phải viết cùng nhau, không thể tách riêng được (hãy xem lại phần Single Responsibility). Sẽ hợp lý hơn nếu bạn chia ra:
@@ -94,8 +107,12 @@ IOnlineStore chứa định nghĩa các function, vốn phục vụ cho 2 mục 
         IEnumerable<CartItem> GetItems();
     }
 ```
+### Giải pháp tham khảo
+![Interface Segregation Solution](./Diagrams/imgs/Interface-Segregation-Solution.png)
 
 ## Dependency-Inversion
+![Dependency-Inversion](./Diagrams/imgs/Dependency-Inversion.png)
+
 Các lớp chỉ nên phụ thuộc vào các interface, không nên phụ thuộc vào các lớp cụ thể.
 
 Trong lớp OnlineStore, bạn sử dụng ConsolePrinter và FileStorage. Điều đó có nghĩa bạn luôn phải gắn liền với một ConsolePrinter, dù có lúc bạn sẽ muốn in ra một máy in kiểu khác, hoặc dùng một cơ chế lưu trữ khác.
@@ -131,3 +148,6 @@ public class FakeMemoryAPIBackend: IAPIBackend
 ```
 
 Vậy thì bạn có thể dễ dàng truyền vào một đối tượng FakeMemoryAPIBackend phù hợp để test lớp OnlineStore mà không cần phải setup cả một hệ thống backend trên Azure.
+
+### Giải pháp tham khảo
+![Dependency-Inversion-Solution](./Diagrams/imgs/Dependency-Inversion-Solution.png)
